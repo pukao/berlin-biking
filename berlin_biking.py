@@ -13,6 +13,8 @@ import feedparser
 import requests
 from lxml import html
 
+import db
+
 """
 Configuration
 """
@@ -60,14 +62,9 @@ def check_item(item):
 
   tokens = text.lower().split()
   if any( term.lower() in tokens for term in whitelist):
-    print("Another Bike incident:")
-    print(" Title: '{}'.".format(item['title']))
-    print(" Date: '{}'".format(d))
-    print(" Link: '{}'".format(item['link']))
-    print("")
+    return db.Incident(item['title'], "", item['link'], d)
 
-
-
+  return None
 
 
 content = feedparser.parse(feed_url)
@@ -78,15 +75,21 @@ else:
   print("Fetched {} items".format(len(items)))
 
   new_links = []
+  incidents = []
   cookie = read_cookie()
 
   print("New reports:")
   for item in items:
     new_links.append(item['link'])
     if not new_links[-1] in cookie['last_links']:
-      check_item(item)
+      i = check_item(item)
+      if i:
+          print(i)
+          incidents.append(i)
 
   cookie['last_links'] = new_links
+  db.s.add_all(incidents)
+  db.s.commit()
   write_cookie(cookie)
 
 print("\nDone")
