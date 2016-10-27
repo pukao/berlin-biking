@@ -1,5 +1,4 @@
 Berlin Biking script
 
-* Save the data to a database -> sqlite
 * Build a webpage to view the results
 * Make the results remove-able (after login)
