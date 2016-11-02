@@ -6,7 +6,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from os import path
 from datetime import datetime
 
-db_file = path.join(path.dirname(path.abspath(__file__)), "test.db")
+db_file = path.join(path.dirname(path.abspath(__file__)), "biking.db")
 db_file = "sqlite:///" + db_file
 
 engine = create_engine(db_file, echo=True)
