@@ -1,7 +1,7 @@
 # Specific ones
 
 .berlin_biking.cookie
-test.db
+*.db
 
 *.swp
 
