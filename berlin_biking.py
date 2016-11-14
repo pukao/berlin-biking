@@ -12,6 +12,7 @@ import json
 import feedparser
 import requests
 from lxml import html
+import re
 
 import db
 
@@ -61,8 +62,10 @@ def check_item(item):
   text = "".join(c)
 
   tokens = text.lower().split()
+  tokens = [ re.sub(r'\W+', '', tok) for tok in tokens ]
+
   if any( term.lower() in tokens for term in whitelist):
-    return db.Incident(item['title'], "", item['link'], d)
+      return db.Incident(item['title'], "", item['link'], d)
 
   return None
 
