@@ -19,8 +19,9 @@ class Incident(Base):
     location = Column(Unicode)
     date = Column(DateTime)
     link = Column(Unicode)
+    content = Column(Unicode)
 
-    def __init__(self, title, location, link, date):
+    def __init__(self, title, location, link, date, content):
         self.title = title
         self.location = location
         self.link = link
@@ -28,6 +29,7 @@ class Incident(Base):
             self.date = datetime.strptime(date, "%d.%m.%Y")
         except:
             self.date = datetime.now()
+        self.content = content
 
     def __str__(self):
         content = ""
@@ -35,7 +37,8 @@ class Incident(Base):
         content += " Title: '{}'\n".format(self.title)
         content += " Location: '{}'\n".format(self.location)
         content += " Date: '{}'\n".format(self.date)
-        content +=" Link: '{}'\n".format(self.link)
+        content += " Link: '{}'\n".format(self.link)
+        content += " Content: [{}]\n".format(self.content)
 
         return content
 

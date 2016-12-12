@@ -65,7 +65,7 @@ def check_item(item):
   tokens = [ re.sub(r'\W+', '', tok) for tok in tokens ]
 
   if any( term.lower() in tokens for term in whitelist):
-      return db.Incident(item['title'], "", item['link'], d)
+      return db.Incident(item['title'], "", item['link'], d, text)
 
   return None
 
